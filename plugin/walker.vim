@@ -74,7 +74,7 @@ endfunction
 
 function! s:walkerFirst()
   if &diff | execute 'normal! gg]c'
-  elseif &ft == 'git'
+  elseif &ft == 'git' || &ft == 'diff'
     execute 'normal! gg'
     call s:diff('next')
   else | execute 'cfirst'
@@ -83,14 +83,14 @@ endfunction
 
 function! s:walkerNext()
   if &diff | execute 'normal! ]c'
-  elseif &ft == 'git' | call s:diff('next')
+  elseif &ft == 'git' || &ft == 'diff' | call s:diff('next')
   else | execute 'cnext'
   endif
 endfunction
 
 function! s:walkerPrev()
   if &diff | execute 'normal! [c'
-  elseif &ft == 'git' | call s:diff('prev')
+  elseif &ft == 'git' || &ft == 'diff' | call s:diff('prev')
   else | execute 'cprev'
   endif
 endfunction
