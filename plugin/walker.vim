@@ -72,6 +72,21 @@ function! s:diff(direction)
   endif
 endfunction
 
+" TODO add command to go back to file before quicklist navigation (for coming
+" back to original when Gdiff'ing, can be coupled with CloseQFBufs)
+
+" TODO keep line location across quicklist entries when it's the same file
+" name (so be ablo te navigate 'line history' through vim-fugitive's Gdiff)
+
+" TODO keep line locations of each diff for when person leaves diff mode but
+" is still on the diffed file (unless there is a quicklist, and also let go of
+" these diff locations as soon as person leaves the diffed file buffer the
+" first time)
+
+" TODO walk conflicts (top priority) when there are markers
+" [ConflictMotions - Motions to and inside SCM conflict markers. : vim online](http://www.vim.org/scripts/script.php?script_id=3991)
+" see 'Context' functions https://github.com/tpope/vim-unimpaired/blob/master/plugin/unimpaired.vim
+
 function! s:walkerFirst()
   if &diff | execute 'normal! gg]c'
   elseif &ft == 'git' || &ft == 'diff'
