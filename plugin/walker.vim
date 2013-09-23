@@ -87,29 +87,46 @@ endfunction
 " [ConflictMotions - Motions to and inside SCM conflict markers. : vim online](http://www.vim.org/scripts/script.php?script_id=3991)
 " see 'Context' functions https://github.com/tpope/vim-unimpaired/blob/master/plugin/unimpaired.vim
 
+let [s:cfirst, s:cnext, s:cprev, s:clast] = ['', '', '', '']
+function! s:setKeepAlt(keepalt)
+  let keepalt = (a:keepalt? 'keepalt ' : '')
+  let s:cfirst = l:keepalt . 'cfirst'
+  let s:cnext = l:keepalt . 'cnext'
+  let s:cprev = l:keepalt . 'cprev'
+  let s:clast = l:keepalt . 'clast'
+
+  let s:keepalt = l:keepalt
+  return a:keepalt
+endfunction
+let s:keepalt = s:setKeepAlt(get(g:, 'walker_keepalt', 0))
+
 function! s:walkerFirst()
   if &diff | execute 'normal! gg]c'
   elseif &ft == 'git' || &ft == 'diff'
     execute 'normal! gg'
     call s:diff('next')
-  else | execute 'cfirst'
+  else | execute s:cfirst
   endif
 endfunction
 
 function! s:walkerNext()
   if &diff | execute 'normal! ]c'
   elseif &ft == 'git' || &ft == 'diff' | call s:diff('next')
-  else | execute 'cnext'
+  else | execute s:cnext
   endif
 endfunction
 
 function! s:walkerPrev()
   if &diff | execute 'normal! [c'
   elseif &ft == 'git' || &ft == 'diff' | call s:diff('prev')
-  else | execute 'cprev'
+  else | execute s:cprev
   endif
 endfunction
 
 command! WalkerFirst call s:walkerFirst()
 command! WalkerNext call s:walkerNext()
 command! WalkerPrev call s:walkerPrev()
+
+command! WalkerKeepAlt call s:setKeepAlt(1)
+command! WalkerKeepAltOff call s:setKeepAlt(1)
+command! WalkerKeepAltToggle call s:setKeepAlt(!s:keepalt)
