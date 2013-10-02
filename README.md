@@ -21,3 +21,5 @@ context-aware fashion:
 |`WalkerPrev`  | `nnoremap <Leader>s :WalkerPrev<CR>` |
 
 More to come, I'm just lazy (and that's all I really use.)
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/goldfeld/vim-walker/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
